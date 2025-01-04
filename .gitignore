@@ -1,0 +1,16 @@
+# Catkin build directories
+build/
+devel/
+install/
+
+# Catkin tools
+.catkin_tools/
+
+# ROS-specific files
+*.log
+*.pyc
+__pycache__/
+
+# Other
+*.swp
+*.swo

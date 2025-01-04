@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<robot name="cobot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find cobot_simulation)/urdf/joint_link.xacro"/>
+
+    <!-- Fix cobot to the world -->
+    <link name="world"/>
+
+    <joint name="fixed" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+    </joint>
+    
+
+    <!-- Base Link -->
+    <xacro:cobot_link_cylinder name="base_link" origin_xyz="0.0 0.0 0.025" origin_rpy="0.0 0.0 0.0" 
+                        radius="0.1" length="0.05" 
+                        mass="1" ixx="0.01625" ixy="0" ixz="0" iyy="0.01625" iyz="0" izz="0.005"/>
+
+    <!-- Link 1 -->
+    <xacro:cobot_link_cylinder name="link1" origin_xyz="0.0 0.0 0.132" origin_rpy="0.0 0.0 0.0" 
+                        radius="0.05" length="0.264"
+                        mass="1.5" ixx="0.054147" ixy="0" ixz="0" iyy="0.054147" iyz="0" izz="0.001875"/>
+
+    <xacro:cobot_joint name="base_link__link1" type="revolute" parent="base_link" child="link1" 
+                       axis="0 0 1" limit_l="-3.14" limit_u="3.14" limit_v="0.5" limit_e="1000.0" 
+                       origin_xyz="0 0 0.05" origin_rpy="0 0 0"/>
+
+    <!-- Link 2 -->
+    <xacro:cobot_link_cylinder name="link2" origin_xyz="0.0 0.0 0.425" origin_rpy="0.0 0.0 0.0" 
+                            radius="0.05" length="0.850"
+                            mass="2" ixx="0.4816" ixy="0" ixz="0" iyy="0.0" iyz="0" izz="0.4816"/>
+
+    
+    <xacro:cobot_joint name="link1__link2" type="revolute" parent="link1" child="link2" 
+                       axis="0 1 0" limit_l="-2.50" limit_u="2.50" limit_v="0.5" limit_e="1000.0" 
+                       origin_xyz="0 0.1 0.214" origin_rpy="0 0 0"/>
+
+    <!-- Put Transmission into each joint-->
+    <xacro:transmission name="trans_base_link__link1" 
+                        joint_name="base_link__link1" 
+                        actuator_name="motor_base_link__link1"/>
+
+    <xacro:transmission name="trans_link1__link2" 
+                    joint_name="link1__link2" 
+                    actuator_name="motor_link1__link2"/>
+
+    <!-- Gazebo plugin-->
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/cobot</robotNamespace>
+        </plugin>
+    </gazebo>
+</robot>
