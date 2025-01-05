@@ -12,12 +12,9 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   urdf
-
   controller_manager
   joint_state_controller
   robot_state_publisher
-
-  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -74,11 +71,11 @@ find_package(catkin REQUIRED COMPONENTS
 #   Action2.action
 # )
 
-# Generate added messages and services with any dependencies listed here
-generate_messages(
-  DEPENDENCIES
-  std_msgs
-)
+## Generate added messages and services with any dependencies listed here
+# generate_messages(
+#   DEPENDENCIES
+#   std_msgs
+# )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -112,7 +109,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES cobot_simulation
- CATKIN_DEPENDS roscpp rospy std_msgs urdf message_runtime
+#  CATKIN_DEPENDS roscpp rospy std_msgs urdf
 #  DEPENDS system_lib
 )
 

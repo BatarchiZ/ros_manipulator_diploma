@@ -30,6 +30,12 @@
         args="joint_state_controller
             joint1_position_controller
             joint2_position_controller
+            joint3_position_controller
+            joint4_position_controller
+            joint5_position_controller
+            joint6_position_controller
+            gripper_right_position_controller
+            gripper_left_position_controller
             --timeout 60 ">
     </node>
 
@@ -38,4 +44,7 @@
         output="screen" respawn="false">
         <remap from="/joint_states" to="/cobot/joint_states"/>
     </node> 
+
+    <node name="rqt_reconfigure" pkg="rqt_gui" type="rqt_gui" />
+
 </launch>

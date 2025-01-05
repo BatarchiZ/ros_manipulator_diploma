@@ -4,6 +4,12 @@
 
     <xacro:include filename="$(find cobot_simulation)/urdf/joint_link.xacro"/>
     <xacro:include filename="$(find cobot_simulation)/urdf/gripper.xacro"/>
+    <xacro:include filename="$(find cobot_simulation)/urdf/sensors/kinetic_rgb.urdf.xacro"/>
+
+    <!-- Constants -->
+    <xacro:property name="deg_to_rad" value="0.01745329251994329577"/>
+    <xacro:property name="M_SCALE" value="0.001 0.001 0.001"/> 
+    <xacro:property name="M_PI" value="3.14159"/>
 
     <!-- Fix cobot to the world -->
     <link name="world"/>
@@ -94,6 +100,13 @@
     <xacro:transmission name="trans_link4__link5" 
             joint_name="link4__link5" 
             actuator_name="motor_link4__link5"/>
+
+
+    <!-- Define RGB-D sensor -->  
+    <xacro:kinetic_rgb name="rgbd_camera" parent="base">
+        <origin xyz="0.1 0.0 2.3" rpy="${0.0 * deg_to_rad} ${70.0 * deg_to_rad} ${0.0 * deg_to_rad}"/>
+        <origin xyz="0 0 0" rpy="${-90 * deg_to_rad} ${0 * deg_to_rad} ${-90 * deg_to_rad}" />
+    </xacro:kinetic_rgb>
 
 
             
